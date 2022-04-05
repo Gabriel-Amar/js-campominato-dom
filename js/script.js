@@ -21,17 +21,17 @@ function play(evento) {
     }else if(livelli.value === "3"){
         wrapper.innerHTML = ""
         creaTessere(49)
-        let tessereNum = 49
-        let tesserePerside = Math.sqrt(tessereNum);
         
     }
 }
 
 //Funzione per creare le tessere
-function creaTessere(num, tesserePerside){
+function creaTessere(num){
     for (let i = 1; i <= num; i++){
         let tessera = document.createElement("div");
         tessera.setAttribute("class", "tessera");
+        let tessereNum = num
+        let tesserePerside = Math.sqrt(tessereNum);
         tessera.style.width = `calc(100% / ${tesserePerside})`;
         tessera.style.height = `calc(100% / ${tesserePerside})`;
         console.log(tessera)
