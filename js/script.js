@@ -6,7 +6,8 @@ function getRandom(min, max){
 
 const numeroBombe = 16;
 const bombe = [];
-
+let maxTentativi;
+let tentativi = 0;
 
 document.getElementById("play").addEventListener("click", play)
 
@@ -29,6 +30,7 @@ function play(evento) {
 }
 
 function generaBombe(num){
+    maxTentativi = num - numeroBombe
     while(bombe.length < numeroBombe){
         let numeroBombe = getRandom(1, num);
         if(!bombe.includes(numeroBombe)){
@@ -58,12 +60,22 @@ function creaTessere(num){
             cambiaColore[i].addEventListener("click", colors);
             function colors(){
                 let numero = parseInt(this.innerText)
+                tentativi++;
                 if(bombe.includes(numero)){
                     this.style.backgroundColor = "red"
+                    this.innerHTML = `<i class="fa-solid fa-bomb"></i>`
+                    fineGioco()
                 }else{
-                    this.style.backgroundColor = "blue"
+                    this.style.backgroundColor = "#663399"
+                }
+                if(tentativi > maxTentativi){
+                    fineGioco()
                 }
                 cambiaColore[c].classList.add("active");
+            }
+            function fineGioco(){
+                let titolo = document.getElementById("titolo");
+                alert("Hai perso")
             }
         }
 }
