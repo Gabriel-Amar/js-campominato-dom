@@ -1,3 +1,13 @@
+function getRandom(min, max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+const numeroBombe = 16;
+const bombe = [];
+
+
 document.getElementById("play").addEventListener("click", play)
 
 //Funzione bottone
@@ -9,22 +19,23 @@ function play(evento) {
     document.getElementsByClassName(".tessere");
     if(livelli.value === "1"){
         creaTessere(100)
-        let tessereNum = 100
-        let tesserePerside = Math.sqrt(tessereNum);
-        
     }else if(livelli.value === "2"){
         wrapper.innerHTML = ""
         creaTessere(81)
-        let tessereNum = 81
-        let tesserePerside = Math.sqrt(tessereNum);
-        
     }else if(livelli.value === "3"){
         wrapper.innerHTML = ""
         creaTessere(49)
-        
     }
 }
 
+function generaBombe(num){
+    while(bombe.length < numeroBombe){
+        let numeroBombe = getRandom(1, num);
+        if(!bombe.includes(numeroBombe)){
+            bombe.push(numeroBombe);
+        }
+    }
+}
 //Funzione per creare le tessere
 function creaTessere(num){
     for (let i = 1; i <= num; i++){
@@ -39,12 +50,19 @@ function creaTessere(num){
         const wrapper = document.getElementById("wrapper");
         wrapper.append(tessera);
     }
+    generaBombe(num)
     //Cambia colore alle tessere
     let cambiaColore = document.querySelectorAll(".tessera");
         for(i=0; i < cambiaColore.length; i++){
             let c = i;
             cambiaColore[i].addEventListener("click", colors);
             function colors(){
+                let numero = parseInt(this.innerText)
+                if(bombe.includes(numero)){
+                    this.style.backgroundColor = "red"
+                }else{
+                    this.style.backgroundColor = "blue"
+                }
                 cambiaColore[c].classList.add("active");
             }
         }
