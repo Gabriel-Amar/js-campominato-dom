@@ -24,10 +24,23 @@ body{
     background-color: #663399;
     color: white;
 }
-.tessera{
+.pointer{
 
     cursor: pointer;
 }
+.youlose{
+    color: red;
+}
+.youwin{
+    color: green;
+}
+.youlose, .youwin{
+    font-size: 50px;
+    position: absolute;
+    padding-left: 98px;
+    padding-top: 172px;
+}
+
 footer{
     height: 49px;
     background-color: white;

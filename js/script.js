@@ -5,7 +5,7 @@ function getRandom(min, max){
 }
 
 const numeroBombe = 16;
-const bombe = [];
+let bombe = [];
 let maxTentativi;
 let tentativi = 0;
 
@@ -31,6 +31,7 @@ function play(evento) {
 
 function generaBombe(num){
     maxTentativi = num - numeroBombe
+    bombe = []
     while(bombe.length < numeroBombe){
         let numeroBombe = getRandom(1, num);
         if(!bombe.includes(numeroBombe)){
@@ -47,6 +48,7 @@ function creaTessere(num){
         let tesserePerside = Math.sqrt(tessereNum);
         tessera.style.width = `calc(100% / ${tesserePerside})`;
         tessera.style.height = `calc(100% / ${tesserePerside})`;
+        tessera.classList.add("pointer")
         console.log(tessera)
         tessera.innerHTML = i;
         const wrapper = document.getElementById("wrapper");
@@ -59,23 +61,26 @@ function creaTessere(num){
             let c = i;
             cambiaColore[i].addEventListener("click", colors);
             function colors(){
-                let numero = parseInt(this.innerText)
+                let numero = parseInt(this.innerText);
+                maxTentativi = num - numeroBombe;
                 tentativi++;
                 if(bombe.includes(numero)){
-                    this.style.backgroundColor = "red"
-                    this.innerHTML = `<i class="fa-solid fa-bomb"></i>`
-                    fineGioco()
+                    this.style.backgroundColor = "red";
+                    this.innerHTML = `<i class="fa-solid fa-bomb"></i>`;
+                    this.classList.remove("pointer");
+                    fineGioco();
                 }else{
-                    this.style.backgroundColor = "#663399"
+                    this.style.backgroundColor = "#663399";
                 }
                 if(tentativi > maxTentativi){
-                    fineGioco()
+                    let youwin = document.getElementById("youwin");
+                    youwin.classList.remove("d-none");
                 }
                 cambiaColore[c].classList.add("active");
             }
             function fineGioco(){
-                let titolo = document.getElementById("titolo");
-                alert("Hai perso")
+                let youlose = document.getElementById("youlose");
+                youlose.classList.remove("d-none");
             }
         }
 }
